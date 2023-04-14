@@ -25,7 +25,7 @@ if '%errorlevel%' NEQ '0' (
     CD /D "%~dp0"
     set /P "UCCAPNAME=Enter a custom filter name to register as (default is 'Unity Video Capture'): "
     echo Installing capture device named '%UCCAPNAME%' ...
-    regsvr32 "UnityCaptureFilter32bit.dll" "/i:UnityCaptureName=%UCCAPNAME%"
-    regsvr32 "UnityCaptureFilter64bit.dll" "/i:UnityCaptureName=%UCCAPNAME%"
+    regsvr32 "UnityCaptureFilter32.dll" "/i:UnityCaptureName=%UCCAPNAME%"
+    regsvr32 "UnityCaptureFilter64.dll" "/i:UnityCaptureName=%UCCAPNAME%"
     echo "Done"
 :--------------------------------------

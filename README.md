@@ -27,6 +27,11 @@ The script `Install.bat` registers just a single capture device usable for captu
 capture multiple cameras simultaneously you can instead run the `InstallMultipleDevices.bat` script which prompts for a
 number of capture devices you wish to register.
 
+### Update
+
+When updating from a version from before April 2023 it is recommended to uninstall the old version first.
+The old version is available [`here`](../../archive/7a3278dcefe37544370226e92bdfd60140434045.zip).
+
 
 ## Test in Unity
 
