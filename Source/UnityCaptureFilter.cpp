@@ -1092,6 +1092,14 @@ __inline static GUID GetCLSIDUnityCaptureServiceNum(int i)
 	return NumCLSID;
 }
 
+struct AStringHolder { char str[256]; };
+__inline static AStringHolder GetDevicePathNum(int i)
+{
+	AStringHolder res;
+	StringCchPrintf(res.str, sizeof(res.str)/sizeof(*res.str), "foo:bar%d", i + 1);
+	return res;
+}
+
 extern "C" int CustomGetFactoryType(const IID &rClsID)
 {
 	if (IsEqualCLSID(rClsID, CLSID_UnityCaptureProperties)) return 1;
@@ -1178,7 +1186,8 @@ static HRESULT RegisterFilters(BOOL bRegister)
 					StringFromCLSID(GetCLSIDUnityCaptureServiceNum(i), &CLSID_Filter_Str);
 					StringCchPrintfW(strKey, 256, L"SOFTWARE\\Classes\\CLSID\\%s\\Instance\\%s", CLSID_Category_Str, CLSID_Filter_Str);
 					RegOpenKeyExW(HKEY_LOCAL_MACHINE, strKey, 0, KEY_ALL_ACCESS, &hKey);
-					RegSetValueExA(hKey, "DevicePath", 0, REG_SZ, (LPBYTE)"foo:bar", (DWORD)sizeof("foo:bar"));
+					const char* path = GetDevicePathNum(i).str;
+					RegSetValueExA(hKey, "DevicePath", 0, REG_SZ, (LPBYTE)path, (DWORD)sizeof(path));
 					RegCloseKey(hKey);
 				}
 				if (FAILED(hr)) MessageBoxA(0, "Service RegisterFilter of IFilterMapper2 failed", "RegisterFilters setup", NULL);
